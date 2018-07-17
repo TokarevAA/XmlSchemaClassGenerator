@@ -658,7 +658,7 @@ namespace XmlSchemaClassGenerator
             var typeReference = TypeReference;
             var simpleType = propertyType as SimpleModel;
 
-            var requiresBackingField = withDataBinding || DefaultValue != null || IsCollection || isArray;
+            var requiresBackingField = withDataBinding || DefaultValue != null || (IsCollection && !Configuration.PublicCollectionSetter) || isArray;
             var backingField = new CodeMemberField(typeReference, OwningType.GetUniqueFieldName(this))
             {
                 Attributes = MemberAttributes.Private
@@ -685,7 +685,7 @@ namespace XmlSchemaClassGenerator
                 else
                     member = new CodeMemberField(typeReference, propertyName);
 
-                var isPrivateSetter = IsCollection || isArray;
+                var isPrivateSetter = (IsCollection && !Configuration.PublicCollectionSetter) || isArray;
 
                 if (requiresBackingField)
                 {
@@ -859,7 +859,7 @@ namespace XmlSchemaClassGenerator
             member.CustomAttributes.AddRange(attributes);
 
             // initialize List<>
-            if (IsCollection || isArray)
+            if ((IsCollection && !Configuration.PublicCollectionSetter) || isArray)
             {
                 var constructor = typeDeclaration.Members.OfType<CodeConstructor>().FirstOrDefault();
                 if (constructor == null)

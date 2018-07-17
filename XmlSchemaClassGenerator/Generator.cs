@@ -193,7 +193,14 @@ namespace XmlSchemaClassGenerator
             set { _configuration.TimeDataType = value; }
         }
 
-        public void Generate(IEnumerable<string> files)
+        public bool PublicCollectionSetter
+        {
+            get { return _configuration.PublicCollectionSetter; }
+            set { _configuration.PublicCollectionSetter = value; }
+        }
+
+
+		public void Generate(IEnumerable<string> files)
         {
             var set = new XmlSchemaSet();
             var settings = new XmlReaderSettings

@@ -37,6 +37,7 @@ namespace XmlSchemaClassGenerator.Console
             var disableComments = false;
             var doNotUseUnderscoreInPrivateMemberNames = false;
             var timeType = false;
+            var publicCollectionSetter = false;
 
             var options = new OptionSet {
                 { "h|help", "show this message and exit", v => showHelp = v != null },
@@ -81,6 +82,7 @@ If no mapping is found for an XML namespace, a name is generated automatically (
                 { "dc|disableComments", "do not include comments from xsd", v => disableComments = v != null },
                 { "nu|noUnderscore", "do not generate underscore in private member name (default is false)", v => doNotUseUnderscoreInPrivateMemberNames = v != null },
                 { "tt|timeAsDateTime", "map xs:time to DateTime instead of string", v => timeType = v != null },
+                { "pcs|publicCollectionSetter", "use public collection setter", v => publicCollectionSetter = v != null },
             };
 
             var files = options.Parse(args);
@@ -124,8 +126,9 @@ If no mapping is found for an XML namespace, a name is generated automatically (
                 TextValuePropertyName = textValuePropertyName,
                 GenerateDebuggerStepThroughAttribute = generateDebuggerStepThroughAttribute,
                 DisableComments = disableComments,
-                TimeDataType = timeType ? typeof(DateTime) : typeof(string)
-            };
+                TimeDataType = timeType ? typeof(DateTime) : typeof(string),
+                PublicCollectionSetter = publicCollectionSetter
+			};
 
             if (pclCompatible)
             {

@@ -172,5 +172,11 @@ namespace XmlSchemaClassGenerator
         /// Default data type for time fields. Defaults to string if not set.
         /// </summary>
         public Type TimeDataType { get; set; }
-    }
+
+        /// <summary>
+        /// Use public setter for collection
+        /// </summary>
+        public bool PublicCollectionSetter { get; set; }
+
+	}
 }
